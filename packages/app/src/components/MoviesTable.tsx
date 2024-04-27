@@ -6,8 +6,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography,
+  Rating,
+  Box,
 } from "@mui/material";
 
 interface MoviesTableProps {
@@ -23,30 +24,20 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
     return company ? company.name : "unknown";
   };
 
-  const calculateAverageReview = (reviews: number[]): string => {
-    const average =
-      reviews.reduce((acc, curr) => acc + curr, 0) / reviews.length;
-    return average.toFixed(1);
-  };
-
   const handleRowSelect = (movie: Movie) => {
     setSelectedMovie(movie);
   };
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ maxWidth: 800, margin: "auto", marginTop: 4 }}
-    >
-      <Typography variant="h6" sx={{ margin: 2 }}>
-        Movie Database
-      </Typography>
+    <TableContainer sx={{ margin: "auto", marginTop: 4 }}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Average Review Score</TableCell>
-            <TableCell>Company</TableCell>
+            <TableCell sx={{ fontWeight: 600 }}>Title</TableCell>
+            <TableCell sx={{ fontWeight: 600 }}>Company</TableCell>
+            <TableCell align="right" sx={{ fontWeight: 600 }}>
+              Average Review
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,10 +52,32 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
               <TableCell component="th" scope="row">
                 {movie.title}
               </TableCell>
-              <TableCell align="right">
-                {calculateAverageReview(movie.reviews)}
-              </TableCell>
               <TableCell>{getCompanyName(movie.filmCompanyId)}</TableCell>
+              <TableCell>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "right",
+                  }}
+                >
+                  <Rating
+                    defaultValue={0}
+                    precision={0.1}
+                    value={movie.averageReviewScore}
+                    max={10}
+                    readOnly
+                  />
+                  <Box sx={{ width: 40 }}>
+                    <Typography
+                      sx={{ marginLeft: 1, fontWeight: 600 }}
+                      align="right"
+                    >
+                      {movie.averageReviewScore}
+                    </Typography>
+                  </Box>
+                </Box>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,3 +1,12 @@
+interface Movies {
+  data: Movie[];
+  meta: {
+    page: number;
+    pageSize: number;
+    count: number;
+    totalPages: number;
+  };
+}
 interface Movie {
   id: number;
   reviews: number[];
@@ -14,12 +23,12 @@ interface Company {
 }
 
 interface DataState {
-  movies: Movie[];
+  movies: Movies;
   companies: Company[];
 }
 
 interface UseFetchDataReturn {
-  movies: Movie[];
+  movies: Movies;
   companies: Company[];
   loading: boolean;
   error: string | null;

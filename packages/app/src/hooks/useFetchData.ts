@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useFetchData = (): UseFetchDataReturn => {
-  const [data, setData] = useState<DataState>({ movies: [], companies: [] });
+  const [data, setData] = useState<DataState>({
+    movies: {
+      data: [],
+      meta: { page: 1, pageSize: 10, count: 0, totalPages: 0 },
+    },
+    companies: [],
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

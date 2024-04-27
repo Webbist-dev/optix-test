@@ -16,7 +16,7 @@
 - [ ] Submit review form should appear in a modal on mobile devices or small breakpoints.
 
 ### Could have(s)
-- [-] Add a button (or other mechanism) to refresh movies and movie companies.
+- [x] ~~Add a button (or other mechanism) to refresh movies and movie companies.~~
 - [ ] Deploy application using docker.
 
 ### Extra have(s)

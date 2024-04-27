@@ -5,6 +5,7 @@ interface Movie {
   filmCompanyId: number;
   cost: number;
   releaseYear: number;
+  averageReviewScore: number;
 }
 
 interface Company {

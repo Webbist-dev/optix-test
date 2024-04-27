@@ -18,3 +18,11 @@
 ### Could have(s)
 - [ ] Add a button (or other mechanism) to refresh movies and movie companies.
 - [ ] Deploy application using docker.
+
+### Extra have(s)
+- [x] Rewrite the API code to be typescript
+- [x] Add faker data to the API and controls for the developer so you can control how much fake data is in
+- [x] Improve the simulated error a toggle for debugging while debugging, not while building
+- [x] Setup the project as a monorepo
+- [x] Update API to handle pagination for larger data sets
+- [x] Update API to handle sort order and sort by of all values not just averageReview

@@ -75,7 +75,7 @@ function shouldSimulateError() {
 app.get("/movies", (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const pageSize = parseInt(req.query.pageSize as string) || 10;
-  const sortBy = (req.query.sortBy as keyof Movie) || "averageReviewScore";
+  const sortBy = (req.query.sortBy as keyof Movie) || "id";
   const sortOrder = (req.query.sortOrder as "asc" | "desc") || "asc";
 
   if (shouldSimulateError()) {
@@ -117,7 +117,7 @@ app.get("/movies", (req: Request, res: Response) => {
     meta: {
       page,
       pageSize,
-      totalEntries: movieData.length,
+      count: movieData.length,
       totalPages: Math.ceil(movieData.length / pageSize),
     },
   });

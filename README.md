@@ -7,7 +7,8 @@
 - [x] Display total number of movies.
 - [ ] User must be able to select table row to leave a review with form appearing when there is a selected movie.
 - [ ] Request to submitReview endpoint and display message returned on response.
-- [ ] Form must restrict message to 100 characters and show an error message if over 100 and not allow for submission in this instance.
+- [ ] Form must restrict message to 100 characters 
+- [ ] Form must show an error message if over 100 and invalidate submission in this instance.
 - [x] Highlight selected movie row when clicked.
 - [ ] Handle error and loading states.
 

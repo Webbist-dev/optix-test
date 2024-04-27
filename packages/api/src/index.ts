@@ -132,8 +132,8 @@ app.get("/movieCompanies", (req: Request, res: Response) => {
 });
 
 app.post("/submitReview", (req: Request, res: Response) => {
-  const { movieId, review } = req.body as { movieId: number; review: number };
-  if (!movieId || typeof review !== "number") {
+  const { movieId, rating } = req.body as { movieId: number; rating: number };
+  if (!movieId || typeof rating !== "number") {
     res.status(400).send({ message: "Invalid input data" });
     return;
   }
@@ -144,7 +144,7 @@ app.post("/submitReview", (req: Request, res: Response) => {
     return;
   }
 
-  movie.reviews.push(review);
+  movie.reviews.push(rating);
   res.send({ message: "Thank you for your review!" });
 });
 

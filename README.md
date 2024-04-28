@@ -6,7 +6,7 @@
 
 You should see the following for the React application
 
-![Optix tech test](https://i.imgur.com/Uh7FxP3.jpeg)
+![Optix tech test](https://i.imgur.com/qkCKIoN.jpeg)
 
 ### Must have(s):
 - [x] Movie titles

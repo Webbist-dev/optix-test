@@ -20,6 +20,8 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
   sortOrder,
   selectedHeader,
   selectedMovie,
+  showCost,
+  showReleaseYear,
   onSortChange,
   onOpen,
 }) => {
@@ -33,10 +35,7 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell
-              sx={{ fontWeight: 600, width: "30%" }}
-              style={{ cursor: "pointer" }}
-            >
+            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
               <TableSortLabel
                 active={selectedHeader === "title"}
                 direction={selectedHeader === "title" ? sortOrder : "asc"}
@@ -45,10 +44,8 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                 Title
               </TableSortLabel>
             </TableCell>
-            <TableCell
-              sx={{ fontWeight: 600, width: "30%" }}
-              style={{ cursor: "pointer" }}
-            >
+
+            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
               <TableSortLabel
                 active={selectedHeader === "filmCompanyId"}
                 direction={
@@ -59,10 +56,31 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                 Company
               </TableSortLabel>
             </TableCell>
-            <TableCell
-              sx={{ fontWeight: 600, width: "20%" }}
-              style={{ cursor: "pointer" }}
-            >
+            {showReleaseYear && (
+              <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
+                <TableSortLabel
+                  active={selectedHeader === "releaseYear"}
+                  direction={
+                    selectedHeader === "releaseYear" ? sortOrder : "asc"
+                  }
+                  onClick={() => onSortChange("releaseYear")}
+                >
+                  Release Year
+                </TableSortLabel>
+              </TableCell>
+            )}
+            {showCost && (
+              <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
+                <TableSortLabel
+                  active={selectedHeader === "cost"}
+                  direction={selectedHeader === "cost" ? sortOrder : "asc"}
+                  onClick={() => onSortChange("cost")}
+                >
+                  Budget
+                </TableSortLabel>
+              </TableCell>
+            )}
+            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
               <TableSortLabel
                 active={selectedHeader === "averageReviewScore"}
                 direction={
@@ -73,7 +91,7 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                 Audience Score
               </TableSortLabel>
             </TableCell>
-            <TableCell align="right" sx={{ fontWeight: 600, width: "10%" }}>
+            <TableCell align="right" sx={{ fontWeight: 600 }}>
               Add Review
             </TableCell>
           </TableRow>
@@ -89,6 +107,12 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                 {movie.title}
               </TableCell>
               <TableCell>{getCompanyName(movie.filmCompanyId)}</TableCell>
+              {showReleaseYear && (
+                <TableCell component="th" scope="row">
+                  {movie.releaseYear}
+                </TableCell>
+              )}
+              {showCost && <TableCell>£{movie.cost}m</TableCell>}
               <TableCell>
                 <Box
                   sx={{

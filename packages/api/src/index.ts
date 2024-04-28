@@ -48,7 +48,7 @@ const generateMovies = (num: number, companies: Company[]): Movie[] => {
         min: 1,
         max: companies.length,
       }),
-      cost: faker.commerce.price(),
+      cost: faker.commerce.price({dec: 0}),
       releaseYear: faker.date.past({ years: 20 }).getFullYear(),
       averageReviewScore: averageReviewScore(reviews),
     };

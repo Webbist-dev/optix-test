@@ -52,6 +52,8 @@ interface MoviesTableProps {
   sortOrder: "asc" | "desc";
   selectedHeader: string;
   selectedMovie: Movie | null;
+  showCost: boolean;
+  showReleaseYear: boolean;
   onSortChange: (field: string) => void;
   onOpen: (movie: Movie) => void;
 }

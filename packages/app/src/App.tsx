@@ -11,6 +11,10 @@ import {
   Select,
   SelectChangeEvent,
   Snackbar,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  Divider,
 } from "@mui/material";
 import MoviesTable from "./components/MoviesTable";
 import FormModal from "./components/FormModal";
@@ -27,6 +31,8 @@ const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
+  const [showCost, setShowCost] = useState<boolean>(false);
+  const [showReleaseYear, setShowReleaseYear] = useState<boolean>(false);
 
   const { movies, companies, loading, error } = useFetchData({
     page,
@@ -81,38 +87,67 @@ const App: React.FC = () => {
       }}
     >
       {movies.data.length > 0 && companies.length > 0 && (
-        <Stack
-          spacing={2}
-          sx={{
-            paddingTop: 2,
-          }}
-        >
-          <Typography variant="h6">Movie Database</Typography>
-          <Stack alignItems={"center"} spacing={2} paddingBottom={2}>
+        <Box>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={4}
+            sx={{
+              paddingTop: 2,
+              paddingBottom: 2,
+            }}
+          >
+            <Box>
+              <Typography variant="h6">Optix | Technical test</Typography>
+              <Typography variant="subtitle2">
+                Alex Bennett |{" "}
+                <a
+                  href="mailto:info@alex-bennett.co.uk"
+                  style={{ color: "#1976d2" }}
+                >
+                  info@alex-bennett.co.uk
+                </a>{" "}
+                |{" "}
+                <a href="tel:07514279404" style={{ color: "#1976d2" }}>
+                  07514279404
+                </a>
+              </Typography>
+            </Box>
+            <FormGroup>
+              <FormControlLabel
+                labelPlacement="start"
+                label="Show budget"
+                control={<Checkbox />}
+                onChange={(_, value) => setShowCost(value)}
+              ></FormControlLabel>
+              <FormControlLabel
+                labelPlacement="start"
+                label="Show release year"
+                control={<Checkbox />}
+                onChange={(_, value) => setShowReleaseYear(value)}
+              ></FormControlLabel>
+            </FormGroup>
+          </Stack>
+          <Divider />
+          <Stack spacing={2} paddingBottom={2}>
             <MoviesTable
               movies={movies.data}
               companies={companies}
               selectedMovie={selectedMovie}
               selectedHeader={selectedHeader}
               sortOrder={sortOrder}
+              showCost={showCost}
+              showReleaseYear={showReleaseYear}
               onSortChange={handleSortChange}
               onOpen={handleOpen}
             />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 2,
-                }}
-              >
+              <Stack direction="row" alignItems="center" spacing={2}>
                 <FormControl size="small">
                   <Select
                     value={`${pageSize}`}
@@ -128,7 +163,7 @@ const App: React.FC = () => {
                 <Typography variant="body2">
                   Total Movies: {movies.meta.count}
                 </Typography>
-              </Box>
+              </Stack>
 
               <Pagination
                 count={movies.meta.totalPages}
@@ -139,36 +174,30 @@ const App: React.FC = () => {
                 showFirstButton={movies.meta.totalPages > 10}
                 showLastButton={movies.meta.totalPages > 10}
               />
-            </Box>
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       )}
 
       {loading && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: 2,
-            marginTop: 2,
-          }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={4}
         >
           <Typography variant="h6">Loading...</Typography>
-        </Box>
+        </Stack>
       )}
       {error && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: 2,
-            marginTop: 2,
-          }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={4}
         >
           <Typography variant="h6">Error...</Typography>
-        </Box>
+        </Stack>
       )}
       <FormModal
         isOpen={isOpen}

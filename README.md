@@ -37,6 +37,7 @@ You should see the following for the React application
 - [x] Setup the project as a monorepo
 - [x] Update API to handle pagination for larger data sets
 - [x] Update API to handle sort order and sort by of all values not just averageReview
+- [x] Added additional data not required by acceptance criteria as toggled content (Show budget/Show release year)
 
 ## Notes:
 
@@ -61,3 +62,5 @@ You should see the following for the React application
 - I've used formik for validation and form control.
 
 - I have conciously not commented this code as an opportunity to discuss it without prompts during a review meeting. 
+
+- To further test the agnostic sorting functionality, I've added the releaseYear and cost fields to the render as optionally displayed content

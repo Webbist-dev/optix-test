@@ -4,6 +4,11 @@
 2. Setup your .env files (use the .env.example in each package)
 3. Run npm start in each package or in root
 
+Or run Docker compose.
+
+1. docker-compose up --build
+
+
 You should see the following for the React application
 
 ![Optix tech test](https://i.imgur.com/qkCKIoN.jpeg)
@@ -28,7 +33,7 @@ You should see the following for the React application
 
 ### Could have(s)
 - [x] ~~Add a button (or other mechanism) to refresh movies and movie companies.~~
-- [ ] Deploy application using docker.
+- [x] Deploy application using docker.
 
 ### Extra have(s)
 - [x] Rewrite the API code to be typescript
@@ -41,7 +46,7 @@ You should see the following for the React application
 
 ## Notes:
 
-- I chose to rewrite the API because the sorting and heavy lifting of a dataset should be handled by the data layer. I had access to it, so I made the change. Of course, this is not always possible. I also found the dataset too small to be effective, given that the brief included a *should have* stating: Add a button (or other mechanism) to refresh movies and movie companies. I interpreted the "other mechanism" as an opportunity to implement a more common and complex UI pattern
+- I chose to rewrite the API because the sorting and heavy lifting of a dataset should be handled by the data layer. I had access to it, so I made the change. Of course, this is not always possible. I also found the dataset too small to be effective, given that the brief included a *should have* stating: *Add a button (or other mechanism) to refresh movies and movie companies.* I interpreted the "other mechanism" as an opportunity to implement a more common and complex UI pattern
 
 - The new UI required agnostic data sorting, pagination, and user-controlled page size. This could, of course, be improved, optimized, and further developed, but I am happy to discuss any decisions I've made on this project in a follow-up meeting at your convenience.
 
@@ -64,3 +69,5 @@ You should see the following for the React application
 - I have conciously not commented this code as an opportunity to discuss it without prompts during a review meeting. 
 
 - To further test the agnostic sorting functionality, I've added the releaseYear and cost fields to the render as optionally displayed content
+
+- Updated Vite, [This issue](https://github.com/TanStack/query/issues/5175) Relating to Formik and the version of vite the project code was provided with. Issue encountered when building for Docker.

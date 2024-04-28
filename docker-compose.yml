@@ -1,0 +1,19 @@
+services:
+  app:
+    build: ./packages/app
+    ports:
+      - "3000:5000"
+    depends_on:
+      - api
+    environment:
+      - VITE_API_ENDPOINT=http://api:4321
+
+  api:
+    build: ./packages/api
+    ports:
+      - "4321:4321"
+    environment:
+      - PORT=4321
+      - SIMULATE_ERRORS=false
+      - NUM_COMPANIES=5
+      - NUM_MOVIES=200

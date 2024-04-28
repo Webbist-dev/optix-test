@@ -16,6 +16,9 @@ import {
   FormControlLabel,
   Divider,
 } from "@mui/material";
+import {
+  Movie,
+} from "./types/types";
 import MoviesTable from "./components/MoviesTable";
 import FormModal from "./components/FormModal";
 

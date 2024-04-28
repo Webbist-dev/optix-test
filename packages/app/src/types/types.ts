@@ -1,25 +1,25 @@
-interface PaginationParams {
+export interface PaginationParams {
   page: number;
   pageSize: number;
   sortBy: string;
   sortOrder: "asc" | "desc";
 }
 
-interface PaginationMeta {
+export interface PaginationMeta {
   page: number;
   pageSize: number;
   count: number;
   totalPages: number;
 }
 
-interface PaginatedData<T> {
+export interface PaginatedData<T> {
   data: T[];
   meta: PaginationMeta;
 }
 
-interface Movies extends PaginatedData<Movie> {}
+export interface Movies extends PaginatedData<Movie> {}
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   reviews: number[];
@@ -29,24 +29,24 @@ interface Movie {
   averageReviewScore: number;
 }
 
-interface Company {
+export interface Company {
   id: number;
   name: string;
 }
 
-interface DataState {
+export interface DataState {
   movies: Movies;
   companies: Company[];
 }
 
-interface UseFetchDataReturn {
+export interface UseFetchDataReturn {
   movies: Movies;
   companies: Company[];
   loading: boolean;
   error: string | null;
 }
 
-interface MoviesTableProps {
+export interface MoviesTableProps {
   movies: Movie[];
   companies: Company[];
   sortOrder: "asc" | "desc";
@@ -58,14 +58,14 @@ interface MoviesTableProps {
   onOpen: (movie: Movie) => void;
 }
 
-interface FormDialogProps {
+export interface FormDialogProps {
   isOpen: boolean;
   selectedMovie: Movie | null;
   onClose: () => void;
   onSubmitSuccess: (message: string) => void;
 }
 
-interface FormValues {
+export interface FormValues {
   movieId?: number;
   rating: number;
   review: string;

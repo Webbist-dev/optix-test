@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import {
   Button,
   Dialog,
@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import { TextField } from "formik-mui";
 import * as Yup from "yup";
+
+import { FormDialogProps, FormValues } from "../types/types";
 
 const FormModal: React.FC<FormDialogProps> = ({
   isOpen,

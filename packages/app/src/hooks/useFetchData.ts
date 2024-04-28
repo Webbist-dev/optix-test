@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import {
+  PaginationParams,
+  UseFetchDataReturn,
+  DataState,
+} from "../types/types";
 import axios from "axios";
 
 const useFetchData = ({

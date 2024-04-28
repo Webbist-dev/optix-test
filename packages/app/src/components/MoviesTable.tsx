@@ -13,6 +13,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import ReviewsIcon from "@mui/icons-material/Reviews";
+import { MoviesTableProps } from "../types/types";
 
 const MoviesTable: React.FC<MoviesTableProps> = ({
   movies,

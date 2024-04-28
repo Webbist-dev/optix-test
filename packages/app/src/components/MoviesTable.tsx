@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
@@ -9,23 +9,23 @@ import {
   Typography,
   Rating,
   Box,
+  IconButton,
+  TableSortLabel,
 } from "@mui/material";
+import ReviewsIcon from "@mui/icons-material/Reviews";
 
-interface MoviesTableProps {
-  movies: Movie[];
-  companies: Company[];
-}
-
-const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-
+const MoviesTable: React.FC<MoviesTableProps> = ({
+  movies,
+  companies,
+  sortOrder,
+  selectedHeader,
+  selectedMovie,
+  onSortChange,
+  onOpen,
+}) => {
   const getCompanyName = (companyId: number): string => {
     const company = companies.find((c) => c.id === companyId);
     return company ? company.name : "unknown";
-  };
-
-  const handleRowSelect = (movie: Movie) => {
-    setSelectedMovie(movie);
   };
 
   return (
@@ -33,10 +33,48 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: 600 }}>Title</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Company</TableCell>
-            <TableCell align="right" sx={{ fontWeight: 600 }}>
-              Average Review
+            <TableCell
+              sx={{ fontWeight: 600, width: "30%" }}
+              style={{ cursor: "pointer" }}
+            >
+              <TableSortLabel
+                active={selectedHeader === "title"}
+                direction={selectedHeader === "title" ? sortOrder : "asc"}
+                onClick={() => onSortChange("title")}
+              >
+                Title
+              </TableSortLabel>
+            </TableCell>
+            <TableCell
+              sx={{ fontWeight: 600, width: "30%" }}
+              style={{ cursor: "pointer" }}
+            >
+              <TableSortLabel
+                active={selectedHeader === "filmCompanyId"}
+                direction={
+                  selectedHeader === "filmCompanyId" ? sortOrder : "asc"
+                }
+                onClick={() => onSortChange("filmCompanyId")}
+              >
+                Company
+              </TableSortLabel>
+            </TableCell>
+            <TableCell
+              sx={{ fontWeight: 600, width: "20%" }}
+              style={{ cursor: "pointer" }}
+            >
+              <TableSortLabel
+                active={selectedHeader === "averageReviewScore"}
+                direction={
+                  selectedHeader === "averageReviewScore" ? sortOrder : "asc"
+                }
+                onClick={() => onSortChange("averageReviewScore")}
+              >
+                Audience Score
+              </TableSortLabel>
+            </TableCell>
+            <TableCell align="right" sx={{ fontWeight: 600, width: "10%" }}>
+              Add Review
             </TableCell>
           </TableRow>
         </TableHead>
@@ -46,8 +84,6 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
               key={movie.id}
               hover
               selected={selectedMovie?.id === movie.id}
-              onClick={() => handleRowSelect(movie)}
-              style={{ cursor: "pointer" }}
             >
               <TableCell component="th" scope="row">
                 {movie.title}
@@ -58,25 +94,30 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies, companies }) => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "right",
+                    marginBottom: 0.5,
+                    gap: 1,
                   }}
                 >
-                  <Rating
-                    defaultValue={0}
-                    precision={0.1}
-                    value={movie.averageReviewScore}
-                    max={10}
-                    readOnly
-                  />
-                  <Box sx={{ width: 40 }}>
-                    <Typography
-                      sx={{ marginLeft: 1, fontWeight: 600 }}
-                      align="right"
-                    >
-                      {movie.averageReviewScore}
-                    </Typography>
-                  </Box>
+                  <Typography sx={{ fontWeight: 600 }}>
+                    {movie.averageReviewScore}/10
+                  </Typography>
+                  <Typography variant="body2">
+                    based on {movie.reviews.length}{" "}
+                    {`review${movie.reviews.length > 1 ? "s" : ""}`}
+                  </Typography>
                 </Box>
+                <Rating
+                  defaultValue={0}
+                  precision={0.1}
+                  value={movie.averageReviewScore}
+                  max={10}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell align="right">
+                <IconButton onClick={() => onOpen(movie)}>
+                  <ReviewsIcon color="primary" />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}

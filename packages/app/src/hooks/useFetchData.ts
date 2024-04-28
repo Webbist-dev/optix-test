@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetchData = (): UseFetchDataReturn => {
+const useFetchData = ({
+  page,
+  pageSize,
+  sortBy,
+  sortOrder,
+}: PaginationParams): UseFetchDataReturn => {
   const [data, setData] = useState<DataState>({
     movies: {
       data: [],
-      meta: { page: 1, pageSize: 10, count: 0, totalPages: 0 },
+      meta: { page, pageSize, count: 0, totalPages: 0 },
     },
     companies: [],
   });
@@ -16,17 +21,23 @@ const useFetchData = (): UseFetchDataReturn => {
     const fetchData = async () => {
       const apiUrl = import.meta.env.VITE_API_ENDPOINT || "";
       try {
-        const moviesPromise = axios.get(`${apiUrl}/movies`);
+        const moviesUrl = `${apiUrl}/movies?page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
+        const moviesPromise = axios.get(moviesUrl);
         const companiesPromise = axios.get(`${apiUrl}/movieCompanies`);
 
         const [moviesResponse, companiesResponse] = await Promise.all([
           moviesPromise,
           companiesPromise,
         ]);
-        setData({
-          movies: moviesResponse.data,
+
+        setData((prevData) => ({
+          ...prevData,
+          movies: {
+            data: moviesResponse.data.data,
+            meta: moviesResponse.data.meta,
+          },
           companies: companiesResponse.data,
-        });
+        }));
         setError(null);
       } catch (err) {
         console.error("Failed to fetch data:", err);
@@ -36,7 +47,7 @@ const useFetchData = (): UseFetchDataReturn => {
     };
 
     fetchData();
-  }, []);
+  }, [page, pageSize, sortBy, sortOrder]);
 
   return { ...data, loading, error };
 };

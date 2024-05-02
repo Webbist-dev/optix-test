@@ -1,10 +1,4 @@
-## Installation
-
-1. Run npm install in root of your project
-2. Setup your .env files (use the .env.example in each package)
-3. Run npm start in each package or in root
-
-Or run Docker compose.
+Run Docker compose in root of the project, this should install the project and the dependencies, network them and allow you to navigate to the .
 
 1. docker-compose up --build
 
@@ -71,3 +65,5 @@ You should see the following for the React application
 - To further test the agnostic sorting functionality, I've added the releaseYear and cost fields to the render as optionally displayed content
 
 - Updated Vite, [This issue](https://github.com/TanStack/query/issues/5175) Relating to Formik and the version of vite the project code was provided with. Issue encountered when building for Docker.
+
+- I have commited the env file to ensure the project does not need additional standard steps for sensitive information (commited .env files etc)

@@ -7,13 +7,10 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Rating,
   Box,
-  IconButton,
   TableSortLabel,
 } from "@mui/material";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import { MoviesTableProps } from "../types/types";
+import { Movie, MoviesTableProps } from "../types/types";
 
 const MoviesTable: React.FC<MoviesTableProps> = ({
   movies,
@@ -21,8 +18,6 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
   sortOrder,
   selectedHeader,
   selectedMovie,
-  showCost,
-  showReleaseYear,
   onSortChange,
   onOpen,
 }) => {
@@ -31,57 +26,19 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
     return company ? company.name : "unknown";
   };
 
+  movies.forEach((movie: Movie) => {
+    const total = movie.reviews.reduce((acc, review) => acc + review, 0);
+    movie.averageReviewScore =
+      Math.round((total / movie.reviews.length) * 10) / 10;
+  });
+
   return (
     <TableContainer sx={{ margin: "auto", marginTop: 4 }}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
-              <TableSortLabel
-                active={selectedHeader === "title"}
-                direction={selectedHeader === "title" ? sortOrder : "asc"}
-                onClick={() => onSortChange("title")}
-              >
-                Title
-              </TableSortLabel>
-            </TableCell>
-
-            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
-              <TableSortLabel
-                active={selectedHeader === "filmCompanyId"}
-                direction={
-                  selectedHeader === "filmCompanyId" ? sortOrder : "asc"
-                }
-                onClick={() => onSortChange("filmCompanyId")}
-              >
-                Company
-              </TableSortLabel>
-            </TableCell>
-            {showReleaseYear && (
-              <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
-                <TableSortLabel
-                  active={selectedHeader === "releaseYear"}
-                  direction={
-                    selectedHeader === "releaseYear" ? sortOrder : "asc"
-                  }
-                  onClick={() => onSortChange("releaseYear")}
-                >
-                  Release Year
-                </TableSortLabel>
-              </TableCell>
-            )}
-            {showCost && (
-              <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
-                <TableSortLabel
-                  active={selectedHeader === "cost"}
-                  direction={selectedHeader === "cost" ? sortOrder : "asc"}
-                  onClick={() => onSortChange("cost")}
-                >
-                  Budget
-                </TableSortLabel>
-              </TableCell>
-            )}
-            <TableCell sx={{ fontWeight: 600 }} style={{ cursor: "pointer" }}>
+            <TableCell>Movie Title</TableCell>
+            <TableCell>
               <TableSortLabel
                 active={selectedHeader === "averageReviewScore"}
                 direction={
@@ -89,12 +46,10 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                 }
                 onClick={() => onSortChange("averageReviewScore")}
               >
-                Audience Score
+                Reviews
               </TableSortLabel>
             </TableCell>
-            <TableCell align="right" sx={{ fontWeight: 600 }}>
-              Add Review
-            </TableCell>
+            <TableCell>Company that produced the film</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -103,17 +58,11 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
               key={movie.id}
               hover
               selected={selectedMovie?.id === movie.id}
+              onClick={() => onOpen(movie)}
             >
               <TableCell component="th" scope="row">
                 {movie.title}
               </TableCell>
-              <TableCell>{getCompanyName(movie.filmCompanyId)}</TableCell>
-              {showReleaseYear && (
-                <TableCell component="th" scope="row">
-                  {movie.releaseYear}
-                </TableCell>
-              )}
-              {showCost && <TableCell>£{movie.cost}m</TableCell>}
               <TableCell>
                 <Box
                   sx={{
@@ -124,26 +73,11 @@ const MoviesTable: React.FC<MoviesTableProps> = ({
                   }}
                 >
                   <Typography sx={{ fontWeight: 600 }}>
-                    {movie.averageReviewScore}/10
-                  </Typography>
-                  <Typography variant="body2">
-                    based on {movie.reviews.length}{" "}
-                    {`review${movie.reviews.length > 1 ? "s" : ""}`}
+                    {movie.averageReviewScore}
                   </Typography>
                 </Box>
-                <Rating
-                  defaultValue={0}
-                  precision={0.1}
-                  value={movie.averageReviewScore}
-                  max={10}
-                  readOnly
-                />
               </TableCell>
-              <TableCell align="right">
-                <IconButton onClick={() => onOpen(movie)}>
-                  <ReviewsIcon color="primary" />
-                </IconButton>
-              </TableCell>
+              <TableCell>{getCompanyName(movie.filmCompanyId)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

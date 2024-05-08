@@ -1,32 +1,11 @@
-export interface PaginationParams {
-  page: number;
-  pageSize: number;
-  sortBy: string;
-  sortOrder: "asc" | "desc";
-}
-
-export interface PaginationMeta {
-  page: number;
-  pageSize: number;
-  count: number;
-  totalPages: number;
-}
-
-export interface PaginatedData<T> {
-  data: T[];
-  meta: PaginationMeta;
-}
-
-export interface Movies extends PaginatedData<Movie> {}
-
 export interface Movie {
   id: number;
-  title: string;
   reviews: number[];
+  title: string;
   filmCompanyId: number;
   cost: string;
   releaseYear: number;
-  averageReviewScore: number;
+  averageReviewScore?: number;
 }
 
 export interface Company {
@@ -35,15 +14,16 @@ export interface Company {
 }
 
 export interface DataState {
-  movies: Movies;
+  movies: Movie[];
   companies: Company[];
 }
 
 export interface UseFetchDataReturn {
-  movies: Movies;
+  movies: Movie[];
   companies: Company[];
   loading: boolean;
-  error: string | null;
+  error: any;
+  refetch: () => void;
 }
 
 export interface MoviesTableProps {
@@ -52,8 +32,6 @@ export interface MoviesTableProps {
   sortOrder: "asc" | "desc";
   selectedHeader: string;
   selectedMovie: Movie | null;
-  showCost: boolean;
-  showReleaseYear: boolean;
   onSortChange: (field: string) => void;
   onOpen: (movie: Movie) => void;
 }
@@ -67,6 +45,5 @@ export interface FormDialogProps {
 
 export interface FormValues {
   movieId?: number;
-  rating: number;
   review: string;
 }

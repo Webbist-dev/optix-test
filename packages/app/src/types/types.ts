@@ -7,7 +7,6 @@ export interface Movie {
   releaseYear: number;
   averageReviewScore?: number;
 }
-
 export interface Company {
   id: number;
   name: string;
@@ -29,11 +28,10 @@ export interface UseFetchDataReturn {
 export interface MoviesTableProps {
   movies: Movie[];
   companies: Company[];
-  sortOrder: "asc" | "desc";
-  selectedHeader: string;
   selectedMovie: Movie | null;
-  onSortChange: (field: string) => void;
   onOpen: (movie: Movie) => void;
+  onRefresh: () => void;
+  loading: boolean;
 }
 
 export interface FormDialogProps {
@@ -46,4 +44,10 @@ export interface FormDialogProps {
 export interface FormValues {
   movieId?: number;
   review: string;
+}
+
+export interface ReviewFormProps {
+  selectedMovie: Movie | null;
+  onClose: () => void;
+  onSubmitSuccess: (message: string) => void;
 }

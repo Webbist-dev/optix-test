@@ -2,9 +2,29 @@ Run Docker compose in root of the project, this should install the project and t
 
 1. docker-compose up --build
 
-You should see the following for the React application
+or manually
 
-![Optix tech test](https://i.imgur.com/qkCKIoN.jpeg)
+1. cd into `packages/api`
+2. run `npm install`
+3. run `npm start`
+4. The server will be available at http://localhost:3000
+5. cd into `packages/app`
+6. run `npm install`
+7. run `npm start`
+8. The application will be available at the output in console (from vite)
+
+or with lerna
+
+1. npm install -g lerna
+2. npm install in root of the project
+3. npm start in root of the project
+4. The server will be available at http://localhost:3000
+5. The application will be available at the output in console (from vite)
+
+
+You should see the following for the React application
+![A/C only | Optix tech test](https://i.imgur.com/aL44tNk.png)
+For this version see commit [#96faea4](https://github.com/Webbist-dev/optix-test/commit/96faea43662d17c7f6e9a69876472c0aea4aa21b)
 
 ### Must have(s):
 - [x] Movie titles
@@ -68,3 +88,6 @@ You should see the following for the React application
 - ~~I have commited the env file to ensure the project does not need additional standard steps for sensitive information (commited .env files etc)~~
 
 - I have simplified the project to only match acceptance criteria and use the original simple express starter
+
+![Optix tech test - cool version](https://i.imgur.com/qkCKIoN.jpeg)
+For this version see commit [#504f70a](https://github.com/Webbist-dev/optix-test/commit/504f70a812d38ea192b1197614e947464a736a73)

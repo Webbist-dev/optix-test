@@ -23,6 +23,9 @@ or with lerna
 
 
 You should see the following for the React application
+![Slight embellish | Optix tech test](https://i.imgur.com/udqHvk1.png)
+For this version see commit [#6dfc52d](https://github.com/Webbist-dev/optix-test/commit/bf9ed68a1644b670e0107e8b4f5754a6ee2b3f9e)
+
 ![A/C only | Optix tech test](https://i.imgur.com/aL44tNk.png)
 For this version see commit [#96faea4](https://github.com/Webbist-dev/optix-test/commit/96faea43662d17c7f6e9a69876472c0aea4aa21b)
 
